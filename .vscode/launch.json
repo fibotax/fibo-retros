@@ -12,8 +12,7 @@
       "console": "integratedTerminal",
       "program": "${workspaceFolder}/index.js",
       "env": {
-        "ENV": "staging",
-        "PI_REST_URL": "http://localhost:3001",
+        "PI_REST_URL": "http://localhost:3005",
         "CHUNK_TO_UPDATE_SIZE": "30",
         "CHUNK_TO_GET_SIZE": "100"
       }
