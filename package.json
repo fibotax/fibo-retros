@@ -1,0 +1,24 @@
+{
+  "name": "fibo-retros",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "link-pi-db": "cd ../pi-db  && npm link && cd ../fibo-retros && npm link @fibotax/pi-db",
+    "return-to-calc": "node --inspect return-to-calc/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fibotax/fibo-retros.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fibotax/pi-db": "^3.0.148",
+    "csvtojson": "^2.0.10",
+    "fs": "^0.0.1-security",
+    "inquirer": "^8.2.4",
+    "lodash": "^4.17.21",
+    "path": "^0.12.7"
+  }
+}
