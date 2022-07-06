@@ -1,11 +1,17 @@
 const inquirer = require('inquirer');
 const { handler: returnToCalcHandler } = require('./return-to-calc');
+const { handler: add106Workplaces } = require('./add-106-workplaces');
 
 const handler = async () => {
   console.log('start');
 
   const scriptTypeAnswer = await inquirer.prompt([
-    { type: 'list', name: 'script-type', message: 'Which script do you want to run?', choices: ['return-to-calc'] },
+    {
+      type: 'list',
+      name: 'script-type',
+      message: 'Which script do you want to run?',
+      choices: ['add-106-workplaces', 'return-to-calc'],
+    },
   ]);
   const retroNameAnswer = await inquirer.prompt([
     { type: 'input', name: 'retor-name', message: 'What is the retro audit log name?' },
@@ -18,6 +24,8 @@ const handler = async () => {
   switch (scriptTypeAnswer['script-type']) {
     case 'return-to-calc':
       await returnToCalcHandler(actionContext);
+    case 'add-106-workplaces':
+      await add106Workplaces(actionContext);
 
     default:
       break;

@@ -15,10 +15,12 @@
   "license": "ISC",
   "dependencies": {
     "@fibotax/pi-db": "^3.0.148",
+    "@fibotax/pi-dynamodb": "^2.0.45",
     "csvtojson": "^2.0.10",
     "fs": "^0.0.1-security",
     "inquirer": "^8.2.4",
     "lodash": "^4.17.21",
+    "moment": "^2.29.3",
     "path": "^0.12.7"
   }
 }
