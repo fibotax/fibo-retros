@@ -12,7 +12,7 @@
       "console": "integratedTerminal",
       "program": "${workspaceFolder}/index.js",
       "env": {
-        "PI_REST_URL": "http://localhost:4000",
+        "PI_REST_URL": "http://localhost:3005",
         "CHUNK_TO_UPDATE_SIZE": "30",
         "CHUNK_TO_GET_SIZE": "100",
         "FilesTable": "user_files_prod"

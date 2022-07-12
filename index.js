@@ -10,7 +10,7 @@ const handler = async () => {
       type: 'list',
       name: 'script-type',
       message: 'Which script do you want to run?',
-      choices: ['add-106-workplaces', 'return-to-calc'],
+      choices: ['return-to-calc', 'add-106-workplaces'],
     },
   ]);
   const retroNameAnswer = await inquirer.prompt([
@@ -24,8 +24,10 @@ const handler = async () => {
   switch (scriptTypeAnswer['script-type']) {
     case 'return-to-calc':
       await returnToCalcHandler(actionContext);
+      break;
     case 'add-106-workplaces':
       await add106Workplaces(actionContext);
+      break;
 
     default:
       break;
