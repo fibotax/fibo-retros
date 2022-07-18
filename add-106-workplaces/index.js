@@ -1,34 +1,15 @@
 const inquirer = require('inquirer');
 const moment = require('moment');
-const csvtojson = require('csvtojson/v2');
-const fs = require('fs');
 const _ = require('lodash');
-const path = require('path');
 const PiDB = require('@fibotax/pi-db');
 const db = new PiDB(process.env.PI_REST_URL);
-const input = require('./input.json');
+const inputDataGetter = require('./../common/inputDataGetter');
 const { UserFiles, ArchiveCalc, RentedApartments, CalcResults, AdditionalInfoFiles } = require('@fibotax/pi-dynamodb');
 const userFilesModel = new UserFiles();
 
 const employmentPeriodsModel = db.employmentPeriods();
 const taxRefundModel = db.taxRefund();
 const additionalInfoModel = db.additionalInfo();
-
-const getInputData = async () => {
-  const answer = await inquirer.prompt([
-    { type: 'list', name: 'input-type', message: 'What is your input source type?', choices: ['csv', 'json'] },
-  ]);
-
-  if (answer['input-type'] === 'json') {
-    return input;
-  }
-
-  return await csvtojson({ noheader: true })
-    .fromStream(fs.createReadStream(path.resolve(__dirname, 'input.csv')))
-    .then((data) => {
-      return _.map(data, (r) => _.values(r));
-    });
-};
 
 const getWorkplaces = async (userId, year) => {
   const workplaces = await employmentPeriodsModel.getUserEmployments(userId);
@@ -160,7 +141,7 @@ const add106 = async (userId, year, workplaces, actionContext) => {
 };
 
 exports.handler = async (actionContext) => {
-  const input_users_ids = await getInputData();
+  const input_users_ids = await inputDataGetter.getInputData();
   console.log('input users, found =', input_users_ids.length);
   const userWorkplaces = [];
 

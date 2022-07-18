@@ -1,29 +1,9 @@
 const inquirer = require('inquirer');
-const csvtojson = require('csvtojson/v2');
-const fs = require('fs');
-const _ = require('lodash');
-const path = require('path');
 const { USERS_TABLE, TAX_REFUNDS_TABLE } = require('@fibotax/pi-db/models/consts/tables');
 const { T15_CALC_CONFIRM, T12_5, T17 } = require('@fibotax/pi-db/models/consts/tasks');
 const PiDB = require('@fibotax/pi-db');
 const db = new PiDB(process.env.PI_REST_URL);
-const input = require('./input.json');
-
-const getInputData = async () => {
-  const answer = await inquirer.prompt([
-    { type: 'list', name: 'input-type', message: 'What is your input source type?', choices: ['json', 'csv'] },
-  ]);
-
-  if (answer['input-type'] === 'json') {
-    return input;
-  }
-
-  return await csvtojson({ noheader: true })
-    .fromStream(fs.createReadStream(path.resolve(__dirname, 'input.csv')))
-    .then((data) => {
-      return _.map(data, (r) => _.values(r)[0]);
-    });
-};
+const inputDataGetter = require('./../common/inputDataGetter');
 
 const getPartners = async (input_users_ids) => {
   const users_ids = [];
@@ -103,7 +83,7 @@ const askForApprove = async (message) => {
 };
 
 exports.handler = async (actionContext) => {
-  const input_users_ids = await getInputData();
+  const input_users_ids = await inputDataGetter.getInputData();
   console.log('input users, found =', input_users_ids.length);
 
   const users = await getPartners(input_users_ids);
