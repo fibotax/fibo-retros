@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const { handler: returnToCalcHandler } = require('./return-to-calc');
 const { handler: add106Workplaces } = require('./add-106-workplaces');
+const { handler: closeAlerts } = require('./close-alerts');
 
 const handler = async () => {
   console.log('start');
@@ -10,7 +11,7 @@ const handler = async () => {
       type: 'list',
       name: 'script-type',
       message: 'Which script do you want to run?',
-      choices: ['return-to-calc', 'add-106-workplaces'],
+      choices: ['return-to-calc', 'add-106-workplaces', 'close-alerts'],
     },
   ]);
   const retroNameAnswer = await inquirer.prompt([
@@ -28,7 +29,9 @@ const handler = async () => {
     case 'add-106-workplaces':
       await add106Workplaces(actionContext);
       break;
-
+    case 'close-alerts':
+      await closeAlerts(actionContext);
+      break;
     default:
       break;
   }
