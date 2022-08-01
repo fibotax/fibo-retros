@@ -6,7 +6,7 @@ const _ = require('lodash');
 const CHUNK_TO_UPDATE_SIZE = parseInt(process.env.CHUNK_TO_UPDATE_SIZE);
 
 const handler = async(actionContext) => {
-    const inputData = await inputDataGetter.getInputData(false);
+    const inputData = await inputDataGetter.getInputData();
     const userIds = _.map(inputData, row => row[0]);
     const alerts = piDB.alert();
     const answer = await inquirer.prompt([

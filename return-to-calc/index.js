@@ -4,6 +4,8 @@ const { T15_CALC_CONFIRM, T12_5, T17 } = require('@fibotax/pi-db/models/consts/t
 const PiDB = require('@fibotax/pi-db');
 const db = new PiDB(process.env.PI_REST_URL);
 const inputDataGetter = require('./../common/inputDataGetter');
+const _ = require('lodash');
+const fs = require('fs');
 
 const getPartners = async (input_users_ids) => {
   const users_ids = [];
